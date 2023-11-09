@@ -24,13 +24,11 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
     const paramId = req.params.id;
-    let updatedDog = req.params.body
+    let updatedDog = req.body
     const dogToUpdate = localDogs.find( ({id}) => id == paramId)
     updatedDog = {...updatedDog, id: parseInt(dogToUpdate.id)}
-    
     const index = localDogs.indexOf(dogToUpdate);
     localDogs[index] = updatedDog
-
     res.send(localDogs)
 })
 

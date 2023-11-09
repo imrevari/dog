@@ -19,12 +19,33 @@ const DogsInfo = ({dog, retriggerAPI} :DogInfoProps) => {
     const EDIT = 'Edit'
     const DELETE = 'Delete'
     const SAVE = 'Save'
+    const CANCEL = 'Cancel'
 
     const {name, picture, age,weight, sex, owner, id } = dog
     const [editedDog, setEditedDog] = useState<Dog | null>(null)
 
-    useEffect(() => {console.log(editedDog)}, [editedDog])
 
+
+    useEffect(() => {setEditedDog(null)}, [dog])
+
+    const onClickCancelDelete = () => {
+        if(!editedDog){
+            deleteDog()
+        }else{
+            setEditedDog(null)
+        }
+        
+    }
+
+    const onEditDog = () => {
+        if(!editedDog){
+            setEditedDog(dog)
+        }else{
+            onSave()
+            setEditedDog(null)
+        }
+        
+    }
 
     const deleteDog = () =>{
         axios.delete(URL + '/' + id)
@@ -34,14 +55,6 @@ const DogsInfo = ({dog, retriggerAPI} :DogInfoProps) => {
         }
       ).catch( error => console.log(error)
       )
-
-    }
-
-
-
-
-    const onEditDog = () => {
-        setEditedDog(dog)
     }
 
     const onInputChange = (e: any) =>{
@@ -52,13 +65,12 @@ const DogsInfo = ({dog, retriggerAPI} :DogInfoProps) => {
             //@ts-ignore: nextline
             setEditedDog({...dogCopy, [e.target.id]: e.target.value})
         }
-
     }
 
 
     const onSave = () => {
+        console.log('Save is called')
         //validate values
-
         axios.put(URL + '/' + id, editedDog)
         .then(res => {
             console.log('delete successful')
@@ -113,12 +125,12 @@ const DogsInfo = ({dog, retriggerAPI} :DogInfoProps) => {
 
                         <Button variant="contained" 
                         color="warning"
-                        onClick={onEditDog}
+                        onClick={() => onEditDog()}
                         >{editedDog ? SAVE : EDIT}</Button> 
 
                         <Button variant="contained" 
                                 color="error"
-                                onClick={deleteDog}>{DELETE}</Button> 
+                                onClick={() => onClickCancelDelete()}>{editedDog ? CANCEL : DELETE}</Button> 
 
 
                     </div>
