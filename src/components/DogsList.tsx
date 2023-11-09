@@ -19,15 +19,13 @@ const DogsList = ({dogs, onClick}: DogsListProps) => {
         return(
             <div>
 
-                <div>
+                <List sx={{ width: '360px', maxWidth: 360, bgcolor: 'background.paper' }}
+                    subheader={                              
+                        <ListSubheader>        
+                            {HEADER_TEXT}
+                            <Button variant="contained">{ADD_DOG_TEXT}</Button>                          
+                        </ListSubheader>
 
-                </div>
-
-                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-                    subheader={<div className='flex-container'>
-                    <ListSubheader>{HEADER_TEXT}</ListSubheader>
-                    <Button variant="contained">{ADD_DOG_TEXT}</Button>
-                    </div>
                     }
                 
                 >

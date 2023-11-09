@@ -6,6 +6,7 @@ import DogsList from './components/DogsList';
 
 import axios from 'axios';
 import DogsInfo from './components/DogInfo';
+import ListSubheader from '@mui/material/ListSubheader/ListSubheader';
 
 
 
@@ -27,7 +28,7 @@ function App() {
   const [dogsList, setDogsList] = useState<Dog[]>([])
   const [selectedDog, setSelectedDog] = useState<Dog>(defaultDog)
 
-  const URL = 'http://localhost:3000/api/dog'
+  const URL = 'http://localhost:3001/api'
 
 
   useEffect(() => {
@@ -48,11 +49,10 @@ function App() {
   } 
 
 
-
-
   return (
     <>
-    
+      {/* <h1>Hiya for Dogs</h1> */}
+      <ListSubheader>Test </ListSubheader>
       <div className="parentdiv">
         <div className='leftdiv'>
           <DogsList dogs={dogsList} onClick={selectDog}/> 
