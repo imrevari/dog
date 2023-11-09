@@ -14,8 +14,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    let newDog = req.params.body
-
+    let newDog = req.body
     const latDog = localDogs[localDogs.length - 1]
     newDog.id = parseInt(latDog.id) + 1
     localDogs = [...localDogs, newDog]

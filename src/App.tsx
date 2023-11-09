@@ -1,12 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
-import { Dog } from './interfaces/interfaces';
 import DogsList from './components/DogsList';
+import { Dog } from './interfaces/interfaces';
 
 import axios from 'axios';
 import DogsInfo from './components/DogInfo';
-import ListSubheader from '@mui/material/ListSubheader/ListSubheader';
 import { URL } from './consts/contsts';
 
 
@@ -19,7 +17,7 @@ function App() {
     picture: '',
     age: 0,
     weight: 0,
-    sex: '',
+    sex: 'male',
     owner: 'string',
     id: 0
   }
@@ -53,7 +51,11 @@ function App() {
 
   const selectDog = (dog: Dog) =>{
     setSelectedDog(dog)
-  } 
+  }
+  
+  const createNewDog = () =>{
+    setSelectedDog(defaultDog)
+  }
 
 
   return (
@@ -62,7 +64,7 @@ function App() {
       {/* <ListSubheader>Test </ListSubheader> */}
       <div className="parentdiv">
         <div>
-          <DogsList dogs={dogsList} onClick={selectDog}/> 
+          <DogsList dogs={dogsList} onClick={selectDog} createNewDog={createNewDog}/> 
         </div>
         <div className='rightdiv'>
           <DogsInfo dog={selectedDog} 

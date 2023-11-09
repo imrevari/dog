@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import Button from "@mui/material/Button"
+import Button from "@mui/material/Button";
 import axios from 'axios';
-import { Dog } from "../interfaces/interfaces"
-import {URL} from '../consts/contsts'
-import './DogInfo.css'
+import { useEffect, useState } from 'react';
+import { URL } from '../consts/contsts';
+import { Dog } from "../interfaces/interfaces";
+import './DogInfo.css';
 
 interface DogInfoProps {
     dog: Dog
@@ -26,7 +26,13 @@ const DogsInfo = ({dog, retriggerAPI} :DogInfoProps) => {
 
 
 
-    useEffect(() => {setEditedDog(null)}, [dog])
+    useEffect(() => {
+        if(dog.id == 0){
+            setEditedDog(dog)
+        }else{
+            setEditedDog(null)
+        }
+    }, [dog])
 
     const onClickCancelDelete = () => {
         if(!editedDog){
@@ -71,7 +77,10 @@ const DogsInfo = ({dog, retriggerAPI} :DogInfoProps) => {
     const onSave = () => {
         console.log('Save is called')
         //validate values
+        const promise = id == 0 ? axios.post(URL, editedDog) :
         axios.put(URL + '/' + id, editedDog)
+
+        promise
         .then(res => {
             console.log('delete successful')
             retriggerAPI(true)
@@ -79,21 +88,23 @@ const DogsInfo = ({dog, retriggerAPI} :DogInfoProps) => {
       ).catch( error => console.log(error)
       )
     }
-    
-
 
         return(
             <>
                 <div className="parent-div">
                     <div className="left-div">
-                        <h1>{name}</h1>
+                        {editedDog ? <input type='string'
+                            id="name"
+                            defaultValue={name}
+                            onChange={(e) => onInputChange(e)}
+                            /> : <h1>{name}</h1> }
+                        
                         <p>Sex</p>
                         {editedDog ? 
                             <select id="sex" name="sex" defaultValue={sex} onChange={(e) => onInputChange(e)}>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                           </select>
-                        
                         : <p>{sex}</p> }
                         <br/>
 

@@ -8,11 +8,12 @@ import './DogsList.css'
 interface DogsListProps {
     dogs: Dog[]
     onClick: (dog: Dog) => void
+    createNewDog: () => void
 }
 
 
 
-const DogsList = ({dogs, onClick}: DogsListProps) => {
+const DogsList = ({dogs, onClick, createNewDog}: DogsListProps) => {
 
     const HEADER_TEXT = 'My Dogs'
     const ADD_DOG_TEXT = 'ADD DOG'
@@ -24,8 +25,12 @@ const DogsList = ({dogs, onClick}: DogsListProps) => {
                     subheader={                              
                         <ListSubheader>
                             <div className='flex-container'>
-                            <h1 className='paragraph'>{HEADER_TEXT}</h1>
-                            <Button variant="contained" className='list-button'>{ADD_DOG_TEXT}</Button>     
+                                <h1 className='paragraph'>{HEADER_TEXT}</h1>
+                                <Button variant="contained" 
+                                        className='list-button'
+                                        onClick={() => createNewDog()}>
+                                    {ADD_DOG_TEXT}
+                                </Button>     
                             </div>        
                                                      
                         </ListSubheader>
