@@ -4,7 +4,7 @@ export interface Dog {
     age: number,
     weight: number,
     sex: string,
-    neutered: true,
+    neutered?: true,
     owner: string,
     id: number
 

@@ -1,0 +1,17 @@
+.parent-div {
+    display: flex; 
+    /* align-self: center; */
+    background-color: #eee;
+    font-family: Arial, sans-serif;
+    flex-wrap: wrap;
+  }
+
+.left-div {
+    width: 50%;
+  }
+  
+  .right-div {
+    width: 50%;
+  }
+  
+  

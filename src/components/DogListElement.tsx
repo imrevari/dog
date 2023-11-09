@@ -11,17 +11,20 @@ import { Dog } from "../interfaces/interfaces"
 
 
 interface DogsListElementProp {
-    name: string,
-    sex: string,
-    id: number
+    dog: Dog
+    onClick: (dog: Dog) => void
 }
 
 
-const DogListElement = ( {name, sex} : DogsListElementProp) => {
+const DogListElement = ( {dog, onClick} : DogsListElementProp) => {
+
+    const {name, sex} = dog;
 
     return(
         <div>
-            <ListItem>
+            <ListItem
+                onClick={() => onClick(dog)}
+             >
                 <ListItemAvatar>
                 <Avatar>
                     <PetsIcon />

@@ -2,6 +2,22 @@
   text-align: center;
 }
 
+.leftdiv {
+  width: 40%;
+}
+
+.rightdiv {
+  width: 60%;
+  text-align: left;
+  margin-left: 5%;
+}
+
+.parentdiv {
+  display: flex; 
+  width: 600px;
+  align-self: center;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
