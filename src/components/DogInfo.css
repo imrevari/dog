@@ -1,5 +1,7 @@
 .parent-div {
+    margin-left: 4%;
     display: flex; 
+    flex: 1;
     /* align-self: center; */
     background-color: #eee;
     font-family: Arial, sans-serif;

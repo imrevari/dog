@@ -33,7 +33,6 @@ function App() {
     axios.get(URL)
     .then(res => {
       const dogs = res.data;
-      console.log(dogs);
       setDogsList(dogs)
       setSelectedDog(dogs[0])
       setRetriggerAPI(false)
@@ -46,11 +45,11 @@ function App() {
     fetchData()
   }, [])
 
-    useEffect(() => {
+  useEffect(() => {
         if(retriggerAPi) {
           fetchData()
         }
-    }, [retriggerAPi])
+  }, [retriggerAPi])
 
   const selectDog = (dog: Dog) =>{
     setSelectedDog(dog)
@@ -59,10 +58,10 @@ function App() {
 
   return (
     <>
-      {/* <h1>Hiya for Dogs</h1> */}
-      <ListSubheader>Test </ListSubheader>
+      <h1 className='h1'>Hiya for Dogs</h1>
+      {/* <ListSubheader>Test </ListSubheader> */}
       <div className="parentdiv">
-        <div className='leftdiv'>
+        <div>
           <DogsList dogs={dogsList} onClick={selectDog}/> 
         </div>
         <div className='rightdiv'>
