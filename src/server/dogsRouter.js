@@ -13,15 +13,28 @@ router.get('/', (req, res) => {
     res.send(localDogs)
 })
 
-router.post('/:id', (req, res) => {
+router.post('/', (req, res) => {
+    let newDog = req.params.body
+
+    const latDog = localDogs[localDogs.length - 1]
+    newDog.id = parseInt(latDog.id) + 1
+    localDogs = [...localDogs, newDog]
     res.send(localDogs)
 })
 
 router.put('/:id', (req, res) => {
+    const paramId = req.params.id;
+    let updatedDog = req.params.body
+    const dogToUpdate = localDogs.find( ({id}) => id == paramId)
+    updatedDog = {...updatedDog, id: parseInt(dogToUpdate.id)}
+    
+    const index = localDogs.indexOf(dogToUpdate);
+    localDogs[index] = updatedDog
+
     res.send(localDogs)
 })
 
-router.get('/delete/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     const paramId = req.params.id;
     const dogToDelete = localDogs.find( ({id}) => id == paramId)
     const index = localDogs.indexOf(dogToDelete);
