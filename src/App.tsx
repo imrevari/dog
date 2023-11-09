@@ -7,6 +7,7 @@ import DogsList from './components/DogsList';
 import axios from 'axios';
 import DogsInfo from './components/DogInfo';
 import ListSubheader from '@mui/material/ListSubheader/ListSubheader';
+import { URL } from './consts/contsts';
 
 
 
@@ -23,26 +24,33 @@ function App() {
     id: 0
   }
 
-
-
   const [dogsList, setDogsList] = useState<Dog[]>([])
   const [selectedDog, setSelectedDog] = useState<Dog>(defaultDog)
+  const [retriggerAPi, setRetriggerAPI] = useState<boolean>(false)
 
-  const URL = 'http://localhost:3001/api'
-
-
-  useEffect(() => {
+  
+  const fetchData = () => {
     axios.get(URL)
     .then(res => {
       const dogs = res.data;
       console.log(dogs);
       setDogsList(dogs)
       setSelectedDog(dogs[0])
+      setRetriggerAPI(false)
     }
-      ).catch( error => console.log(error)
+      ).catch( error => console.log(error));
+  }
 
-      );
-    }, [])
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+    useEffect(() => {
+        if(retriggerAPi) {
+          fetchData()
+        }
+    }, [retriggerAPi])
 
   const selectDog = (dog: Dog) =>{
     setSelectedDog(dog)
@@ -58,7 +66,8 @@ function App() {
           <DogsList dogs={dogsList} onClick={selectDog}/> 
         </div>
         <div className='rightdiv'>
-          <DogsInfo dog={selectedDog}/>
+          <DogsInfo dog={selectedDog} 
+          retriggerAPI={setRetriggerAPI}/>
         </div>
       </div>
     </>

@@ -1,10 +1,35 @@
+
+import Button from "@mui/material/Button"
+import axios from 'axios';
 import { Dog } from "../interfaces/interfaces"
+import {URL} from '../consts/contsts'
+
+interface DogInfoProps {
+    dog: Dog
+    retriggerAPI: (toRetriger: boolean) => void
+}
 
 
-const DogsInfo = ({dog}: {dog: Dog}) => {
+const DogsInfo = ({dog, retriggerAPI} :DogInfoProps) => {
 
     
-    const {name, picture, age,weight, sex, owner } = dog
+    const EDIT = 'Edit'
+    const DELETE = 'Delete'
+
+    const {name, picture, age,weight, sex, owner, id } = dog
+
+
+    const deleteDog = () =>{
+        axios.delete(URL + '/' + id)
+        .then(res => {
+            console.log('delete successful')
+            retriggerAPI(true)
+        }
+      ).catch( error => console.log(error)
+      )
+
+    }
+
 
         return(
             <>
@@ -26,6 +51,11 @@ const DogsInfo = ({dog}: {dog: Dog}) => {
                         <p>Owner</p>
                         <p>{owner ?? `(unknown)`}</p>
                         <br/>
+
+                        <Button variant="contained" color="warning">{EDIT}</Button> 
+                        <Button variant="contained" 
+                                color="error"
+                                onClick={() => deleteDog()}>{DELETE}</Button> 
 
 
                     </div>
